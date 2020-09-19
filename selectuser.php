@@ -16,7 +16,7 @@ function check_user($email, $pass, $pdo) {
         $salt = substr($salt_pass_enc, 0, 16);
         $pass_enc = substr($salt_pass_enc, 16);
         if (hash('md5', $salt . $pass) === $pass_enc) {
-            return true;
+            return $user;
         }
     }
     return false;
