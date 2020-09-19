@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+require_once('pdo.php');
+require_once('selectuser.php');
+
 if (isset($_SESSION['logedin']) && $_SESSION['logedin'] == 'yes') {
     header('location: view.php');
     return;
@@ -25,15 +28,15 @@ if (isset($_POST['cancel'])) {
         return;
     } else {
         //email is ok. password is entered. checking password
-        $salt = "Ag_$3s7";
-        $stored_pass = "9606f63cd663aa99934f1f57698590a2";
-        if (hash('md5', $salt . $_POST['pass']) != $stored_pass) {
-            $_SESSION['msg'] = '<p style="color:red;"> Password is incorrect!</p>';
+        $user = check_user($_POST['email'], $_POST['pass'], $pdo);
+        if (!$user) {
+            $_SESSION['msg'] = '<p style="color:red;">Email doesn\'t exists or password is wrong!</p>';
             header('location: login.php');
             return;
         } else {
             $_SESSION['logedin'] = 'yes';
             $_SESSION['email'] = $_POST['email'];
+            $_SESSION['id'] = $user['user_id'];
             header('location: view.php');
             return;
         }
@@ -81,9 +84,6 @@ if (isset($_POST['cancel'])) {
 
         </form>
         <br><br>
-        <p class="hint">****Every valid email is accepted****</p><br>
-        <p class="hint">****Password is <i>php123</i> ****</p>
-    
     
     </div>
 </body>
