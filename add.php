@@ -26,12 +26,13 @@ if (isset($_POST['cancel'])) {
         return;
     } else {
         $_SESSION['msg'] = '<p style="color:green">Auto added successfully!</p>';
-        $stmt = $pdo->prepare('INSERT INTO autos(make, model, year, mileage) VALUES (:make, :model, :year, :mileage)');
+        $stmt = $pdo->prepare('INSERT INTO autos(make, model, year, mileage, user_id) VALUES (:make, :model, :year, :mileage, :user_id)');
         $stmt->execute([
             ':make' => $_POST['make'],
             ':model' => $_POST['model'],
             ':year' => $_POST['year'],
-            ':mileage' => $_POST['mileage']
+            ':mileage' => $_POST['mileage'],
+            ':user_id' => $_SESSION['id']
         ]);
         header('location: view.php');
         return;
