@@ -3,7 +3,7 @@ require_once('pdo.php');
 
 session_start();
 
-if (!isset($_SESSION['logedin']) || $_SESSION['logedin'] != 'yes'){
+if (!isset($_SESSION['logedin']) || $_SESSION['logedin'] != 'yes' || !isset($_SESSION['id'])){
     die('You are not LOGED IN');
 }
 
@@ -33,7 +33,7 @@ if (!isset($_SESSION['logedin']) || $_SESSION['logedin'] != 'yes'){
         <h1>Automobiles:</h1>
         <ul class="open-ul">
             <?php
-            $stmt = $pdo->query('SELECT * FROM autos');
+            $stmt = $pdo->query('SELECT * FROM autos WHERE user_id=' . $_SESSION['id']);
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo "<li>" . htmlentities($row['make']) . ' / ' . htmlentities($row['model']) . ' / ' . 
                 htmlentities($row['year']) . ' / ' . htmlentities($row['mileage']) . '  ';
