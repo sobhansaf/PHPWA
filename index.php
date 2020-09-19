@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>Welcome to Autos Database</h1>
-        <a href="login.php">Please Log In</a>
+        <p>Please <a href="login.php">Log In</a> OR <a href="signin.php">Sign in</a> </p>
         <p>This is just a test page!</p>
         <p>Other pages (you should login first):</p>
         <ul>
