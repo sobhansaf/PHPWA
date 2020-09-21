@@ -1,0 +1,14 @@
+database structure:
+
+Table autos:
+	autos_id -> integer
+	make -> varchar(128)
+	model -> varchar(128)
+	year -> integer
+	mileage -> integer
+	user_id -> integer
+
+Table users:
+	user_id -> integer
+	email -> varchar(128)
+	pass -> char(48)
