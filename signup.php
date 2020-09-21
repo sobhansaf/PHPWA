@@ -64,7 +64,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Sign In Form</h1>
+        <h1>Sign Up Form</h1>
         <?php
         if (isset($_SESSION['signmsg'])) {
             echo '<p style="color:red">' . $_SESSION['signmsg'] . '</p>';
@@ -83,7 +83,7 @@
                 <input type="password" name='pass'>
             </div>
 
-            <input type="submit" name='subbtn' value='Sign In' class='btn-primary'>
+            <input type="submit" name='subbtn' value='Sign Up' class='btn-primary'>
             <input type="submit" name='cancel' value='Cancel' class='btn-primary red'>
         
         </form>
