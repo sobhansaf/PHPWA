@@ -2,9 +2,9 @@
 
 session_start();
 
-function get_auto($pdo, $auto_id) {
-    $stmt = $pdo->prepare('SELECT * FROM autos WHERE autos_id=?');
-    $stmt->execute([$_POST['id']]);
+function get_auto($pdo, $auto_id, $user_id) {
+    $stmt = $pdo->prepare('SELECT * FROM autos WHERE autos_id=? AND user_id=?');
+    $stmt->execute([$auto_id, $user_id]);
     if ($stmt !== false){
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
     } else {
@@ -17,7 +17,7 @@ function get_auto($pdo, $auto_id) {
 require_once('pdo.php');
 
 
-if (!isset($_SESSION['logedin']) || $_SESSION['logedin'] != 'yes') {
+if (!isset($_SESSION['logedin']) || $_SESSION['logedin'] != 'yes' || !isset($_SESSION['id'])) {
     die('You are not LOGED IN!');
 }
 
@@ -30,14 +30,14 @@ if (isset($_POST['cancel'])) {
         header('location: view.php');
         return;
     }
-    $row = get_auto($pdo, $_POST['id']);
+    $row = get_auto($pdo, $_POST['id'], $_SESSION['id']);  // $_SESSION['id'] is the id of user and $_POST['id'] is the id of car
     if ($row === false) {
         $_SESSION['msg'] = '<p style="color:red">There is no car with given ID in database</p>';
         header('location: view.php');
         return;
     }
-    $stmt = $pdo->prepare('DELETE FROM autos WHERE autos_id=?');
-    $stmt->execute([$_POST['id']]);
+    $stmt = $pdo->prepare('DELETE FROM autos WHERE autos_id=? AND user_id=?');
+    $stmt->execute([$_POST['id'], $_SESSION['id']]);  // $_SESSION['id'] is the id of user and $_POST['id'] is the id of car
     $_SESSION['msg'] = '<p style="color:green">Deleted successfully! </p>';
     header('location: view.php');
     return;
@@ -50,7 +50,7 @@ if (!isset($_POST['id']) || strlen($_POST['id']) < 1) {
     return;
 }
 
-$row = get_auto($pdo, $_POST['id']);
+$row = get_auto($pdo, $_POST['id'], $_SESSION['id']);  // $_SESSION['id'] is the id of user and $_POST['id'] is the id of car
 if ($row === false) {
     $_SESSION['msg'] = '<p style="color:red">There is no car with given ID in database</p>';
     header('location: view.php');
