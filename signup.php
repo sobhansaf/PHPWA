@@ -11,15 +11,15 @@
     if (isset($_POST['subbtn'])) {
         if (!isset($_POST['email']) || strlen($_POST['email']) < 1) {
             $_SESSION['signmsg'] = 'Email is required!';
-            header('location: signin.php');
+            header('location: signup.php');
             return;
         } elseif (!preg_match('/[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+[a-zA-Z]{2,}/', $_POST['email'])) {
             $_SESSION['signmsg'] = 'Please enter a valid email.';
-            header('location: signin.php');
+            header('location: signup.php');
             return;
         } elseif (!isset($_POST['pass']) || strlen($_POST['pass']) < 1)  {
             $_SESSION['signmsg'] = 'Password is required!';
-            header('location: signin.php');
+            header('location: signup.php');
             return;
         } else {
             $email = $_POST['email'];
@@ -28,7 +28,7 @@
 
             if ($user) {
                 $_SESSION['signmsg'] = 'Email already exists. Try another one please!';
-                header('location: signin.php');
+                header('location: signup.php');
                 return;
             }
 

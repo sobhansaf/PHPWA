@@ -79,7 +79,7 @@ if (isset($_POST['cancel'])) {
             </div>     
             <br>
             <input type="submit" class="btn-primary" name="submit" value="Submit">
-            <input type="submit" class="btn-primary" name="cancel red" value="Cancel">
+            <input type="submit" class="btn-primary red" name="cancel" value="Cancel">
 
 
         </form>
