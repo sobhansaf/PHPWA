@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      dockerfile: Dockerfile.app
+    image: autophpwa
+    container_name: web_app
+    ports:
+      - 8080:80
+    environment:
+      db_name: auto_db
+      db_host: db
+      db_user: root
+      db_pass: 123456
+    depends_on:
+      - db
+
+  db:
+    container_name: mysql_php_app
+    build:
+      dockerfile: Dockerfile.db
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
